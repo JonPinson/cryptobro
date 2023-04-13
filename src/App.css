@@ -1,0 +1,12 @@
+body {
+  min-height: 100vh;
+}
+
+.App {
+  width: 85%;
+  margin: auto;
+}
+
+.container {
+  width: 100%;
+}

@@ -1,0 +1,33 @@
+.cryptoCard {
+    display: flex;
+    flex-direction: row;
+    width: 87vw;
+}
+
+.cardLeft {
+    border: solid black 1px;
+    height: 100px;
+    width: 4vw;
+}
+
+.cardRight {
+    border: solid blue 1px;
+    height: 100px;
+    width: 80vw;
+}
+
+.coincardMC {
+    align-items: center;
+    width: auto;
+}
+
+.coincardIMG img {
+    width: 50px;
+    height: auto;
+
+}
+
+.coincardName {
+    min-width: 150px;
+    flex: 1;
+}
