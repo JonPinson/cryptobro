@@ -1,9 +1,11 @@
 import React from 'react'
 import './CryptoCard.css'
 import { Sparklines, SparklinesLine } from 'react-sparklines';
+import {AiOutlineStar} from 'react-icons/ai'
+import { AiFillStar } from 'react-icons/ai'
 
 
-export const CryptoCard = ({ coin }) => {
+export const CryptoCard = ({ coin, fav, setfav }) => {
 
   let USDollar = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -19,7 +21,7 @@ export const CryptoCard = ({ coin }) => {
   return (
     <div className="cryptoCard">
         <div className="cardLeft">
-            <div className='coincardMC'>{coin.market_cap_rank}</div>
+            <div className='coincardMC'>{ fav.includes(coin.symbol.toUpperCase()) ? <AiFillStar onClick={ () => setfav(coin.symbol.toUpperCase())} /> : <AiOutlineStar onClick={ () =>setfav(coin.symbol.toUpperCase())} />}{coin.market_cap_rank}</div>
             <div className='coincardIMG'>
             <img src={coin.image} alt="coin symbol" /></div>
             <div className='coincardName'>{coin.name}</div>

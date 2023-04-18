@@ -12,7 +12,7 @@ function App() {
 
 const [ coinData, setCoinData ] = useState(null);
 const [ compact, setCompact ] = useState(false);
-const [ favorites, setFavorites ] = useState(['BTC','BNB']);
+const [ favorites, setFavorites ] = useState([]);
 
 
 useEffect( () => {
@@ -44,19 +44,39 @@ useEffect( () => {
 
 }, [] );
 
+
+useEffect(() => {
+  console.log("Loading favs...");
+  let savedData = localStorage.getItem("CryptoBroSavedData");
+  if(savedData) {
+    let favArray = JSON.parse(savedData);
+    setFavorites(favArray);
+    console.log("Well we loaded something");
+
+  } else {
+    let starterData = [];
+    const jsonData = JSON.stringify(starterData);
+    console.log("Saving empty array");
+
+    localStorage.set("CryptobroSavedData", jsonData);
+    setFavorites(starterData);
+  } 
+
+}, []);
+
 const toggleFav = (coin) => {
 
   console.log('Toggling...');
 
   let oldfav = favorites;
 
-  if(favorites.includes(coin)) {
-    let newfav = favorites.filter(f => f !== coin);
+  if(oldfav.includes(coin)) {
+    let newfav = oldfav.filter(f => f !== coin);
+    
     setFavorites(newfav);
   } else {
-    let newfav= favorites;
-    newfav.push(coin);
-    setFavorites(newfav);
+      let newfav= coin;
+    setFavorites([...favorites, newfav]);
   }
 }
 
@@ -76,7 +96,7 @@ if(coinData === null) {
 
     <h2>Top {coinData.length} Coins</h2>
 
-      { compact ? ( <CardView coins={coinData} fav={favorites} setfav={toggleFav} />) : (<RowView coins={coinData} fav={favorites} setfav={setFavorites} /> ) }
+      { compact ? ( <CardView coins={coinData} fav={favorites} setfav={toggleFav} />) : (<RowView coins={coinData} fav={favorites} setfav={toggleFav} /> ) }
     </div>
       <Footer />
     </Layout>
