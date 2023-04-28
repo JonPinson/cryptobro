@@ -14,6 +14,8 @@ const [ coinData, setCoinData ] = useState(null);
 const [ compact, setCompact ] = useState(false);
 const [ favorites, setFavorites ] = useState([]);
 
+const [firstload, setFirstLoad] = useState(true);
+
 
 useEffect( () => {
 axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d').then(function (response) {
@@ -46,6 +48,7 @@ useEffect( () => {
 
 
 useEffect(() => {
+  if(firstload) {
   console.log("Loading favs...");
   let savedData = localStorage.getItem("CryptoBroSavedData");
   if(savedData) {
@@ -58,9 +61,16 @@ useEffect(() => {
     const jsonData = JSON.stringify(starterData);
     console.log("Saving empty array");
 
-    localStorage.set("CryptobroSavedData", jsonData);
+
+    localStorage.setItem("CryptobroSavedData", jsonData);
     setFavorites(starterData);
   } 
+  setFirstLoad(false);
+
+ } else {
+  const jsonData = JSON.stringify(favorites);
+  localStorage.setItem("CryptobroSavedData", jsonData);
+ }
 
 }, []);
 
@@ -78,6 +88,9 @@ const toggleFav = (coin) => {
       let newfav= coin;
     setFavorites([...favorites, newfav]);
   }
+  const jsonData = JSON.stringify(favorites);
+  localStorage.setItem("CryptobroSavedData", jsonData);
+  console.log(favorites);
 }
 
 if(coinData === null) {

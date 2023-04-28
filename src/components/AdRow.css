@@ -10,6 +10,8 @@
     width: 40%;
     height: 200px;
     margin-top: 1em;
+    padding: 1em;
+    background-color: lightblue;
 }
 
 .adRight {
@@ -17,10 +19,11 @@
     width: 40%;
     height: 200px;
     margin-top: 1em;
+    padding: 1em;
+    background-color: lightblue;
 }
 
 .slide {
-  border: 1px solid #fff;
   height: 100%;
   width: 100%;
   
